@@ -1,0 +1,26 @@
+!!! 
+%html
+%html
+%head
+  %title DocumentLocker | Save your Document
+  = stylesheet_link_tag "application.css" ,media: "all", "data-turbolinks-track" =>true
+  = javascript_include_tag "application","data-turbolinks-track" => true
+  = csrf_meta_tag
+  = turbo_include_tags 
+
+%body
+  %header
+    .header_inner
+      = link_to "DocumentLocker", root_path, id:'logo'
+
+      %nav
+        - if user_signed_in?
+          = link_to "Create Doc", new_doc_path
+          = link_to "sign out", destroy_user_session_path, data: { turbo_method: :delete }
+        - else
+          = link_to "sign In", new_user_session_path
+
+  %p.notice= notice
+  %alert= alert
+  = yield
+
